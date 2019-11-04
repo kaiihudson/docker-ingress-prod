@@ -2,16 +2,16 @@
 
 #Initialize ingress
 
-if [[ -z ! acme.json ]]
+if [ -f  acme.json ]
     then
-        touch acme.json && chmod 600 ./acme.json
-    else
         echo 'file already exists'
+    else
+        touch acme.json && chmod 600 ./acme.json
 fi
 netPresence='docker network ls | grep ingress'
-if [[ -z ! $netPresence ]]
+if [[ ! -z $netPresence ]]
     then
-        docker network create ingress
+        echo 'network already exists'
     else
-        echo 'network is already created'
+        docker network create ingress
 fi
