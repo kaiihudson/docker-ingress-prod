@@ -1,0 +1,27 @@
+version: '3.7'
+
+networks:
+  ingress:
+    external: true
+
+services:
+  ingress:
+    image: traefik:v1.7
+    restart: always
+    labels:
+      - traefik.docker.network=mainstream
+      - traefik.enable=true
+      - traefik.backend=dashboard
+      - traefik.port=8080
+      - traefik.frontend.rule=Host:ingress.hola.com
+      - org_label_schema.group=monitoring
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik.toml:/traefik.toml
+      - ./acme.json:/acme.json
+    ports:
+      - 8080:8080
+      - 80:80
+      - 443:443
+    networks:
+      - ingress

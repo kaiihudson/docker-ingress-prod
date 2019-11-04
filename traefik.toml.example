@@ -1,0 +1,41 @@
+debug = false
+
+logLevel = "ERROR"
+defaultEntryPoints = ["https", "http"]
+
+[log]
+[accessLog]
+
+[entryPoints]
+  [entryPoints.dashboard]
+    address = ":8080"
+    [entryPoints.dashboard.auth]
+      [entryPoints.dashboard.auth.basic]
+        users = ["admin:$apr1$LuL/C8Za$M/ooT5nGJ6ejy9ltDQZOO1"]
+  [entryPoints.http]
+    address = ":80"
+      [entryPoints.http.redirect]
+        entryPoint = "https"
+  [entryPoints.https]
+    address = ":443"
+      [entryPoints.https.tls]
+
+[retry]
+
+[api]
+entrypoint="dashboard"
+
+[acme]
+email = "example@mail.cl"
+storage = "acme.json"
+entryPoint = "https"
+onHostRule = true
+  [acme.httpChallenge]
+  entryPoint = "http"
+
+[docker]
+endpoint = "unix:///var/run/docker.sock"
+domain = "example.com"
+watch = true
+exposedByDefault = false
+network = "mainstream"
