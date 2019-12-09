@@ -9,7 +9,7 @@ if [ -f  acme.json ]
         touch acme.json && chmod 600 ./acme.json
 fi
 netPresence='docker network ls | grep ingress'
-if [[ ! -z $netPresence ]]
+if [[  -z $netPresence ]]
     then
         echo 'network already exists'
     else

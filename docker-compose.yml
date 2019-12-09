@@ -13,7 +13,7 @@ services:
       - traefik.enable=true
       - traefik.backend=dashboard
       - traefik.port=8080
-      - traefik.frontend.rule=Host:ingress.hola.com
+      - traefik.frontend.rule=Host:${HOST}
       - org_label_schema.group=monitoring
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
